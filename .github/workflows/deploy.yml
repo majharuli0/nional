@@ -11,6 +11,10 @@ jobs:
     outputs:
       main: '${{ steps.filter.outputs.main }}'
       pdf: '${{ steps.filter.outputs.pdf }}'
+      write: '${{ steps.filter.outputs.write }}'
+      img: '${{ steps.filter.outputs.img }}'
+      dev: '${{ steps.filter.outputs.dev }}'
+      social: '${{ steps.filter.outputs.social }}'
       api: '${{ steps.filter.outputs.api }}'
     steps:
     - uses: actions/checkout@v4
@@ -20,6 +24,10 @@ jobs:
         filters: |
           main: 'apps/main/**'
           pdf: 'apps/pdf-tool/**'
+          write: 'apps/write-tool/**'
+          img: 'apps/img-tool/**'
+          dev: 'apps/dev-tool/**'
+          social: 'apps/social-tool/**'
           api: 'apps/api/**'
 
   deploy-pdf:
@@ -82,3 +90,87 @@ jobs:
             **/.git*
             **/.git*/**
             **/node_modules/**
+
+  deploy-write:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.write == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - run: |
+          cd apps/write-tool
+          npm install
+          npm run build
+      - name: 📂 Upload Write Tool
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./apps/write-tool/out/
+          server-dir: ./write/
+
+  deploy-img:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.img == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - run: |
+          cd apps/img-tool
+          npm install
+          npm run build
+      - name: 📂 Upload Img Tool
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./apps/img-tool/out/
+          server-dir: ./img/
+
+  deploy-dev:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.dev == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - run: |
+          cd apps/dev-tool
+          npm install
+          npm run build
+      - name: 📂 Upload Dev Tool
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./apps/dev-tool/out/
+          server-dir: ./dev/
+
+  deploy-social:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.social == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - run: |
+          cd apps/social-tool
+          npm install
+          npm run build
+      - name: 📂 Upload Social Tool
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./apps/social-tool/out/
+          server-dir: ./social/
