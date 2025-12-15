@@ -1,0 +1,84 @@
+name: 🚀 Nional Monorepo Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      main: \${{ steps.filter.outputs.main }}
+      pdf: \${{ steps.filter.outputs.pdf }}
+      api: \${{ steps.filter.outputs.api }}
+    steps:
+    - uses: actions/checkout@v4
+    - uses: dorny/paths-filter@v3
+      id: filter
+      with:
+        filters: |
+          main: 'apps/main/**'
+          pdf: 'apps/pdf-tool/**'
+          api: 'apps/api/**'
+
+  deploy-pdf:
+    needs: detect-changes
+    if: ${{ needs.detect-changes.outputs.pdf == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - run: |
+          cd apps/pdf-tool
+          npm install
+          npm run build
+      - name: 📂 Upload PDF
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./apps/pdf-tool/out/
+          server-dir: ./public_html/pdf/
+
+  deploy-main:
+    needs: detect-changes
+    if: ${{ needs.detect-changes.outputs.main == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - run: |
+          cd apps/main
+          npm install
+          npm run build
+      - name: 📂 Upload Main
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./apps/main/out/
+          server-dir: ./public_html/
+
+  deploy-api:
+    needs: detect-changes
+    if: ${{ needs.detect-changes.outputs.api == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 📂 Upload API
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./apps/api/
+          server-dir: ./public_html/api/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**

@@ -1,0 +1,11 @@
+{
+  "name": "nional-root",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "echo 'Run dev in specific app folders'"
+  }
+}
