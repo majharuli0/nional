@@ -41,7 +41,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./apps/pdf-tool/out/
-          server-dir: ./public_html/pdf/
+          server-dir: ./pdf/
 
   deploy-main:
     needs: detect-changes
@@ -62,7 +62,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./apps/main/out/
-          server-dir: ./public_html/
+          server-dir: ./
 
   deploy-api:
     needs: detect-changes
@@ -77,7 +77,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./apps/api/
-          server-dir: ./public_html/api/
+          server-dir: ./api/
           exclude: |
             **/.git*
             **/.git*/**
