@@ -9,10 +9,10 @@ import {
 
 const TOOLS = [
   { name: 'Nional Write', href: '/write', icon: PenTool, desc: 'AI Writer', status: 'active' },
+  { name: 'Social Architect', href: '/social', icon: Share2, desc: 'Strategy', status: 'active' },
   { name: 'Student Scanner', href: '#', icon: FileText, desc: 'Chat PDF', status: 'coming_soon' },
   { name: 'Image Magic', href: '#', icon: ImageIcon, desc: 'Editor', status: 'coming_soon' },
   { name: 'Dev Toolbox', href: '#', icon: Terminal, desc: 'Utils', status: 'coming_soon' },
-  { name: 'Viral Hooks', href: '#', icon: Share2, desc: 'Social', status: 'coming_soon' },
 ];
 
 export const Navbar = ({ title }) => {
@@ -88,7 +88,7 @@ export const Navbar = ({ title }) => {
                 <ChevronDown size={14} className={`transition-transform duration-300 ${isToolsOpen ? 'rotate-180' : ''}`} />
               </button>
 
-              <div className={`absolute right-0 mt-4 w-[500px] origin-top-right overflow-hidden rounded-3xl border border-black/5 bg-white/80 p-2 shadow-2xl backdrop-blur-2xl transition-all duration-300 ease-out dark:border-white/5 dark:bg-zinc-900/80 ring-1 ring-black/5 dark:ring-white/10 ${
+              <div className={`absolute right-0 mt-4 w-[500px] origin-top-right overflow-hidden rounded-3xl border border-black/5 bg-white/95 p-2 shadow-2xl backdrop-blur-2xl transition-all duration-300 ease-out dark:border-white/5 dark:bg-zinc-900/95 ring-1 ring-black/5 dark:ring-white/10 ${
                 isToolsOpen 
                   ? 'translate-y-0 scale-100 opacity-100 visible' 
                   : 'translate-y-2 scale-95 opacity-0 invisible pointer-events-none'

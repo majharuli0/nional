@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const { PORT } = require('./src/config/env');
 const writeRoutes = require('./src/routes/writeRoutes');
+const socialRoutes = require('./src/routes/socialRoutes');
 
 const app = express();
 
@@ -14,11 +15,7 @@ app.get('/', (req, res) => res.send('Nional API Core is Running 🚀'));
 
 // API Routes
 app.use('/api/write', writeRoutes);
-
-// Example other module (placeholder)
-app.post('/api/pdf/convert', (req, res) => {
-    res.json({ status: 'success', message: 'PDF converted' });
-});
+app.use('/api/social', socialRoutes);
 
 // Start Server
 app.listen(PORT, () => console.log(`API running on port ${PORT}`));

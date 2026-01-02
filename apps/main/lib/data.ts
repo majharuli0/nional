@@ -28,6 +28,28 @@ export const TOOLS = [
     ]
   },
   { 
+    id: 'social', 
+    slug: 'social-architect',
+    name: 'Social Architect', 
+    desc: 'Pro Content Strategy', 
+    longDesc: 'The ultimate tool for creators. Generate high-retention video scripts for TikTok/Reels, viral Twitter threads, and professional LinkedIn posts with a single click.',
+    icon: Share2, 
+    color: 'from-orange-400 to-red-500', 
+    bg: 'bg-orange-50 dark:bg-orange-950/30',
+    text: 'text-orange-600 dark:text-orange-400',
+    status: 'Active',
+    href: '/social',
+    features: [
+        { title: 'Multi-Format', desc: 'Auto-generates Scripts, Threads, and Posts.' },
+        { title: 'Smart Visuals', desc: 'AI suggests visual cues for video scripts.' },
+        { title: 'Platform Native', desc: 'Content formatted specifically for each platform.' }
+    ],
+    faq: [
+      { q: 'Is Social Architect free?', a: 'Yes, generate unlimited scripts and posts for free.' },
+      { q: 'Can I copy the output?', a: 'Yes, one-click copy including formatting and hashtags.' }
+    ]
+  },
+  { 
     id: 'pdf', 
     slug: 'student-scanner',
     name: 'Student Scanner', 
@@ -71,21 +93,6 @@ export const TOOLS = [
     color: 'from-green-400 to-emerald-500', 
     bg: 'bg-green-50 dark:bg-green-950/30',
     text: 'text-green-600 dark:text-green-400',
-    status: 'Coming Soon',
-    href: '#',
-    features: [],
-    faq: []
-  },
-  { 
-    id: 'social', 
-    slug: 'viral-hooks',
-    name: 'Viral Hooks', 
-    desc: 'Social Media Generator', 
-    longDesc: 'Crack the algorithm with AI-generated hooks for TikTok, Twitter/X, and Instagram. Input your topic, and get engaging opening lines that stop the scroll.',
-    icon: Share2, 
-    color: 'from-pink-400 to-rose-500', 
-    bg: 'bg-pink-50 dark:bg-pink-950/30',
-    text: 'text-pink-600 dark:text-pink-400',
     status: 'Coming Soon',
     href: '#',
     features: [],
