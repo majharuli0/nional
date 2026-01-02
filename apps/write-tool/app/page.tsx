@@ -65,7 +65,7 @@ export default function Home() {
     if (!input) return;
     setLoading(true);
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://api.nional.com";
       const res = await fetch(`${apiUrl}/api/write/generate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
